@@ -65,7 +65,7 @@ public void click(By locator, String eleName) throws Exception
 }
 
 
-	public void scrollByVisibilityOfElement(WebDriver driver, WebElement ele) {
+	public void scrollByVisibilityOfElement(WebDriver driver, By ele) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("arguments[0].scrollIntoView();", ele);
 
@@ -157,7 +157,7 @@ public void click(By locator, String eleName) throws Exception
 		try {
 			flag = ele.isDisplayed();
 			ele.clear();
-			ele.sendKeys(text);
+			ele .sendKeys(text);
 			// logger.info("Entered text :"+text);
 			flag = true;
 		} catch (Exception e) {
@@ -757,18 +757,15 @@ public void click(By locator, String eleName) throws Exception
 	}
 	
 	
-	public void fluentWait(WebDriver driver,WebElement element, int timeOut) {
-	    Wait<WebDriver> wait = null;
-	    try {
-	        wait = new FluentWait<WebDriver>((WebDriver) driver)
-	        		.withTimeout(Duration.ofSeconds(20))
-	        	    .pollingEvery(Duration.ofSeconds(2))
-	        	    .ignoring(Exception.class);
-	        wait.until(ExpectedConditions.visibilityOf(element));
-	        element.click();
-	    }catch(Exception e) {
-	    }
-	}
+	/*
+	 * public void fluentWait(WebDriver driver,WebElement element, int timeOut) {
+	 * Wait<WebDriver> wait = null; try { wait = new
+	 * FluentWait<WebDriver>((WebDriver) driver)
+	 * .withTimeout(Duration.ofSeconds(20)) .pollingEvery(Duration.ofSeconds(2))
+	 * .ignoring(Exception.class);
+	 * wait.until(ExpectedConditions.visibilityOf(element)); element.click();
+	 * }catch(Exception e) { } }
+	 */
 	
 	public static void implicitWait(WebDriver driver, int timeOut) {
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -828,6 +825,10 @@ public void click(By locator, String eleName) throws Exception
 			StartBrowser.childTest.info(e);
 			throw e;
 		}
+	}
+	public void type(WebElement nameof, String name, String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

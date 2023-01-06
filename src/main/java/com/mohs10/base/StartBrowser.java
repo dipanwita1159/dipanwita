@@ -1,56 +1,125 @@
 package com.mohs10.base;
 
+
 import java.lang.reflect.Method;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
+import org.testng.annotations.Test;
+
 import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
+import io.github.bonigarcia.wdm.managers.EdgeDriverManager;
+import io.github.bonigarcia.wdm.managers.FirefoxDriverManager;
 
 public class StartBrowser {
-	 public static WebDriver driver;
-	 //set up report
-	 public static ExtentReports extent;
-	 public static ExtentTest parentTest;
-	 public static ExtentTest childTest;
+	public static WebDriver driver;
+	
+	  //set up report
+	  
+	  public static ExtentReports 
+	 extent; public static ExtentTest parentTest; 
+	 public static ExtentTest childTest; 
 	 ExtentSparkReporter sparkReporter;
+	  
+	  @BeforeTest public void generateReport() { sparkReporter = new
+	  ExtentSparkReporter("Report/AutomationReport.html"); extent = new
+	  ExtentReports(); extent.attachReporter(sparkReporter); }
+	  
+	  @BeforeMethod public void methodName(Method method) { parentTest =
+	  extent.createTest(method.getName()); }
 	 
-	 @BeforeTest
-	 public void generateReport()
-	 {
-		 sparkReporter = new ExtentSparkReporter("Report/AutomationReport.html");
-		 extent = new ExtentReports();
-		 extent.attachReporter(sparkReporter);
-	 }
+	
+	  @Parameters("browser")
+	  
+	  @Test public static WebDriver aunchapp(String browser,String Url) throws
+	  MalformedURLException { String URL = "//button[@aria-label='Search']";
+	  
+	  
+	  if (browser.equalsIgnoreCase("firefox")) {
+	  System.out.println(" Executing on FireFox"); String Node =
+	  "http://192.168.1.60:4445/wd/hub"; DesiredCapabilities cap =
+	  DesiredCapabilities.firefox(); cap.setBrowserName("firefox");
+	  cap.setPlatform(Platform.ANY);
+	  
+	  driver = new RemoteWebDriver(new URL(Node), cap); // Puts an Implicit wait,
+	  // Will wait for 10 seconds before throwing exceptio
+	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  
+	  // Launch website
+	  driver.navigate().to(URL);
+	  driver.manage().window().maximize(); } else if
+	  (browser.equalsIgnoreCase("chrome")) {
+	  System.out.println(" Executing on CHROME"); String Node =
+	  "http://192.168.1.60:4445/wd/hub"; DesiredCapabilities cap =
+	  DesiredCapabilities.chrome(); cap.setBrowserName("chrome");
+	  cap.setPlatform(Platform.WIN10);
+	  
+	  driver = new RemoteWebDriver(new URL(Node), cap);
+	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  
+	  /*ClientConfig config =
+	  ClientConfig.defaultConfig().connectionTimeout(Duration.ofMinutes(20))
+	  .readTimeout(Duration.ofMinutes(20)); // I change this 3 minute(Default) to
+	 // 20 minutes.
+*/	  
+	 /* WebDriver remoteWebDriver =
+	  RemoteWebDriver.builder().oneOf(cap).address(Url).config(config).build();*/
+	  
+	  // Launch website driver.navigate().to(URL);
+	  driver.manage().window().maximize(); }
+	  else if(browser.equalsIgnoreCase("msedge")) {
+	  System.out.println(" Executing on edge"); DesiredCapabilities cap =
+	  DesiredCapabilities.edge(); cap.setBrowserName("ie");
+	  cap.setPlatform(Platform.WIN10); String Node = "http://192.168.1.10:5557";
+	  driver = new RemoteWebDriver(new URL(Node), cap);
+	  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	  
+	  // Launch website
+	  driver.navigate().to(URL);
+	  driver.manage().window().maximize();
+	  }
+	  else { throw new IllegalArgumentException("The Browser Type is Undefined"); }
+	  return driver; }
 	 
-	 @BeforeMethod
-	 public void methodName(Method method)
-	 {
-		parentTest = extent.createTest(method.getName()); 
-	 }
-	  @BeforeClass
-	  public void beforeClass() {
-		  WebDriverManager.chromedriver().setup();
-		 // WebDriverManager.firefoxdriver().setup();
-		  //WebDriverManager.edgedriver().setup();
-		  driver = new ChromeDriver();
-		  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-		  driver.manage().window().maximize();
+	
+	  @Test(priority = 2) public static WebDriver beforeClass(String Browser ,
+	  String url) { if(Browser.equals("firefox")) { driver= new FirefoxDriver(); }
+	  else if(Browser.equals("chrome")) { driver=new ChromeDriver(); } else
+	  if(Browser.equalsIgnoreCase("edge")) { driver= new EdgeDriver(); }
+	  driver.manage().window().maximize(); driver.get(url); return driver;
+	  
+	  
 	  }
+	  
+	  
+	  
+	  
+	  
+	  @AfterClass public void afterClass() { driver.quit(); extent.flush(); }
+	  
+	 
 
-	  @AfterClass
-	  public void afterClass() {
-		  driver.quit();
-		  extent.flush();
-	  }
+}
 
-	}
