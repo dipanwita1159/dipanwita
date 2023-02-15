@@ -1,17 +1,16 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="TestSuite"  parallel="tests" >
+<suite name="TestSuite" parallel="tests" >
 
-<test name="ChromeTest">
+<test name="Test">
 
-<parameter name="browser" value="Chrome" />
+
 
 <classes>
 
-<class name="grid.multiple"></class>
+<class name="com.mohs10.scripts.HomeTest"></class>
 
 
 </classes>

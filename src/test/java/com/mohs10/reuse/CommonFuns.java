@@ -33,7 +33,7 @@ import net.sourceforge.tess4j.Tesseract;
 public class CommonFuns {
 
 	public Action aDriver;
-	public  WebDriver driver;
+	public WebDriver driver;
 
 	public CommonFuns() {
 		aDriver = new Action();
@@ -42,10 +42,7 @@ public class CommonFuns {
 
 	public void browserInvoke() throws Exception {
 		StartBrowser.childTest = StartBrowser.parentTest.createNode("login");
-		
-		aDriver.
-		
-	
+
 		aDriver.click(HomePage.aboutUs, "click on click");
 		// aDriver.mouseOverElement(driver, (WebElement) HomePage.aboutUs);
 		/*
@@ -56,31 +53,26 @@ public class CommonFuns {
 		 * = (JavascriptExecutor) driver; js.executeScript("window.scroll(0,1500)");
 		 */
 
-		aDriver.click(HomePage.LinkDin_profile, "click on linkdin");
+		/* aDriver.click(HomePage.LinkDin_profile, "click on linkdin"); */
 		aDriver.navigateToApplication("https://mohs10.io/the-team/");
-		
-		
 
-	
-		
 		aDriver.click(HomePage.Resources, "click on Resources");
-		aDriver.click(HomePage.event, "click on event");
-
-		driver.getWindowHandle();
-		aDriver.click(HomePage.gac_click, "click on gac");
-
-		driver.getWindowHandles();
-
-		Thread.sleep(2000);
-		JavascriptExecutor js3 = (JavascriptExecutor) driver;
-		js3.executeScript("window.scroll(0,1500)");
-		driver.navigate().back();
-		Thread.sleep(5000);
-		/* aDriver.click(HomePage.register, "click on register Button"); */
-
+		/*
+		 * aDriver.click(HomePage.event, "click on event");
+		 * 
+		 * driver.getWindowHandle(); aDriver.click(HomePage.gac_click, "click on gac");
+		 * 
+		 * driver.getWindowHandles();
+		 * 
+		 * Thread.sleep(2000); JavascriptExecutor js3 = (JavascriptExecutor) driver;
+		 * js3.executeScript("window.scroll(0,1500)"); driver.navigate().back();
+		 * Thread.sleep(5000); aDriver.click(HomePage.register,
+		 * "click on register Button");
+		 */
 	}
 
-	public void resource2(String name, String company, String email,String location, String experience,String mobile) throws Exception {
+	public void resource2(String name, String company, String email, String location, String experience, String mobile)
+			throws Exception {
 		StartBrowser.childTest = StartBrowser.parentTest.createNode("login");
 		aDriver.click(HomePage.Resources, "click on Resources");
 		aDriver.click(HomePage.event, "click on event");
@@ -97,8 +89,7 @@ public class CommonFuns {
 		System.out.print("test complete");
 		driver.navigate().back();
 		Thread.sleep(5000);
-		
-	
+
 //case study//
 		aDriver.click(HomePage.Resources, "click on Resources");
 		aDriver.click(HomePage.case_study_click, "case_study_click");
@@ -109,8 +100,9 @@ public class CommonFuns {
 		aDriver.type(HomePage.popUp_Email, email, "click on Email");
 		aDriver.click(HomePage.DownloadButton, "click on DownloadButton");
 		driver.navigate().back();
-	
+
 	}
+
 	public void Apply(String name, String email, String mobile, String location, String experience) throws Exception {
 		StartBrowser.childTest = StartBrowser.parentTest.createNode("login");
 
@@ -118,7 +110,6 @@ public class CommonFuns {
 		JavascriptExecutor js = (JavascriptExecutor) driver;
 		js.executeScript("window.scroll(0,1000)");
 		aDriver.click(HomePage.aplly, "case_study_click");
-		
 
 		aDriver.type(HomePage.A_NAme, name, "click on case study");
 		aDriver.type(HomePage.A_email, email, "click on case study");
@@ -127,30 +118,27 @@ public class CommonFuns {
 		aDriver.type(HomePage.A_experienxe, experience, "click on case study");
 		/* aDriver.click(HomePage.A_resume,"click on case study"); */
 		aDriver.click(HomePage.submit, "click on case study");
-		
 
 	}
 
-	
-	  public void contactus(String name,String Email,String mobile,String
-	  company,String location, String textinput ) throws Exception {
-	  StartBrowser.childTest=StartBrowser.parentTest.createNode("contactus");
-	  aDriver.click(HomePage.contactus, "click on contactus");
-	  aDriver.type(HomePage.email,Email, "click on case study");
-	  aDriver.type(HomePage.phone,mobile, "enter mobile number ");
-	  aDriver.type(HomePage.companyname,company, "click on contactus");
-	  aDriver.type(HomePage.countryname, location,"click on contactus");
-	  aDriver.click(HomePage.Interested_in,"clickon dropDown");
+	public void contactus(String name, String Email, String mobile, String company, String location, String textinput)
+			throws Exception {
+		StartBrowser.childTest = StartBrowser.parentTest.createNode("contactus");
+		aDriver.click(HomePage.contactus, "click on contactus");
+		aDriver.type(HomePage.email, Email, "click on case study");
+		aDriver.type(HomePage.phone, mobile, "enter mobile number ");
+		aDriver.type(HomePage.companyname, company, "click on contactus");
+		aDriver.type(HomePage.countryname, location, "click on contactus");
+		aDriver.click(HomePage.Interested_in, "clickon dropDown");
 
-	  
-		/* aDriver.type(HomePage.account,Acc,"click on contactus"); */ 
-	  aDriver.type(HomePage.text,textinput,"click on contactus"); 
-	 
-	  aDriver.click(HomePage.sendnow, "click on contactus");
-	  aDriver.navigateToApplication("https://mohs10.io/");
-	  
-	  }
-	 
+		/* aDriver.type(HomePage.account,Acc,"click on contactus"); */
+		aDriver.type(HomePage.text, textinput, "click on contactus");
+
+		aDriver.click(HomePage.sendnow, "click on contactus");
+		aDriver.navigateToApplication("https://mohs10.io/");
+
+	}
+
 	public void blog() throws Exception {
 		StartBrowser.childTest = StartBrowser.parentTest.createNode("blog");
 		aDriver.click(HomePage.Resources, "click on Resources");
@@ -159,11 +147,12 @@ public class CommonFuns {
 		driver.navigate().back();
 
 	}
-public void search(String input) throws Exception {
-	StartBrowser.childTest = StartBrowser.parentTest.createNode("blog");
-	aDriver.click(HomePage.search, "null");
-	aDriver.type(HomePage.search, input, "input null");
-	
-}
-	
+
+	public void search(String input) throws Exception {
+		StartBrowser.childTest = StartBrowser.parentTest.createNode("blog");
+		aDriver.click(HomePage.search, "null");
+		aDriver.type(HomePage.search, input, "input null");
+
+	}
+
 }
